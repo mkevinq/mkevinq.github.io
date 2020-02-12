@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Overpass&display=swap');
+
+body {
+    background: radial-gradient(circle, rgba(2,111,152,1) 0%, rgba(0,50,95,1) 100%);
+}
+
+.landing, .about, .projects {
+    font-family: "Montserrat";
+    margin: 50px auto;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0px 0px 10px 2px black;
+}
+
+.landing {
+    background: #7f0000;
+    width: 70%;
+    text-shadow: 0px 2px 3px black;
+    color: white;
+}
+
+.landing h1, .landing .buttons{
+    margin: 25px;
+}
+
+.profiles {
+    text-decoration: none;
+    padding: 10px;
+    font-family: "Montserrat";
+    color: #ffffff;
+}
+
+.buttons div {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-style: solid;
+    border-color: #ffffff;
+    border-width: 2px;
+    border-radius: 5px;
+    padding: 15px 32px;
+    filter: opacity(40%);
+    transition: 0.2s;
+    box-shadow: 0px 2px 3px 0px black;
+}
+
+.buttons div:hover {
+    filter: opacity(100%);
+}
+
+.buttons div img {
+    height: 20px;
+    margin-right: 6px;
+}
+
+.about, .projects {
+    background-color: white;
+    width: 90%;
+}
+
+.projects .container {
+    color: white;
+    margin: 10px auto;
+    text-shadow: 0px 2px 3px black;
+    box-shadow: 0px 2px 3px 0px black;
+    position: relative;
+    overflow: hidden;
+    max-width: 1800px;
+    height: 200px;
+}
+
+.projects .container .info {
+    background-color: #00325f;
+    z-index: 1;
+    position: absolute;
+    min-width: 500px;
+    width: 40%;
+    height: 200px;
+    margin-left: -50px;
+    transform: skewX(-20deg);
+    box-shadow: 0px 0px 10px 2px black;
+    transition: 0.5s;
+}
+
+.projects .container:hover .info {
+    background-color: #7f0000;
+    width: 45%;
+}
+
+.projects .container .info div {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    margin-left: 50px;
+    padding: 30px;
+    transform: skewX(20deg) translateY(-50%);
+    text-align: left;
+}
+
+.projects .container a {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.projects .container img {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
