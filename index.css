@@ -6,22 +6,52 @@ body {
 }
 
 .header {
-    position: sticky;
-    top: 0;
     font-family: "Manrope";
+    display: flex;
+    flex-direction: column;
+    position: sticky;
+    background: white;
+    top: 0;
+    color: black;
+    box-shadow: 0px 0px 10px 2px black;
+    z-index: 10;
+}
+
+.header hr {
+    width: 95%;
+    height: 0px;
+    color: white;
+    box-shadow: none;
+    border: 0.7px solid #e0e0e0;
+    margin: 0px auto;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navbar h4 {
+    margin: 10px 0px;
+    color: black;
+}
+
+.navbar a {
+    text-decoration: none;
+}
+
+.header-main {
     display: flex;
     justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
     font-size: 24px;
-    background: white;
     margin: 0px;
     padding: 10px;
-    color: black;
-    box-shadow: 0px 0px 10px 2px black;
 }
 
-.header h1 {
+.header-main h1 {
     margin: 10px;
     white-space: nowrap;
 }
@@ -48,7 +78,7 @@ body {
     height: 48px;
 }
 
-.about, .projects {
+#about, #projects {
     font-family: "Montserrat";
     margin: auto;
     padding: 10px;
@@ -77,7 +107,7 @@ hr {
     border: none;
 }
 
-.about {
+#about {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -86,18 +116,18 @@ hr {
     width: 80%;
 }
 
-.about .section {
+#about .section {
     width: 40%;
 }
 
-.about img {
+#about img {
     height: 300px;
     border-radius: 50%;
     box-shadow: 0px 0px 10px 2px rgba(100, 100, 100, 0.5);
     margin: auto 0px;
 }
 
-.projects .container {
+#projects .container {
     color: white;
     margin: 10px auto;
     text-shadow: 0px 2px 3px black;
@@ -108,11 +138,11 @@ hr {
     height: 200px;
 }
 
-.projects .container + .container {
+#projects .container + .container {
     margin-top: 50px;
 }
 
-.projects .container .info {
+#projects .container .info {
     background-color: #00325f;
     z-index: 1;
     position: absolute;
@@ -125,12 +155,12 @@ hr {
     transition: 0.5s;
 }
 
-.projects .container:hover .info {
+#projects .container:hover .info {
     background-color: #7f0000;
     width: 45%;
 }
 
-.projects .container .info div {
+#projects .container .info div {
     position: absolute;
     top: 50%;
     left: 10%;
@@ -140,7 +170,7 @@ hr {
     text-align: left;
 }
 
-.projects .container a {
+#projects .container a {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -149,7 +179,7 @@ hr {
     z-index: 2;
 }
 
-.projects .container img {
+#projects .container img {
     position: absolute;
     top: 0;
     right: 0;
