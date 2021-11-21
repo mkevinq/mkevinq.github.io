@@ -13,7 +13,7 @@ const ExperienceTile: FunctionComponent<Experience> = ({
 }) => {
   return (
     <div
-      className="font-sans rounded-md flex flex-col md:flex-row items-center bg-white dark:bg-gray2-light text-center w-11/12 md:w-9/12 mx-auto p-4 drop-shadow-xl"
+      className="rounded-md flex flex-col md:flex-row items-center bg-white dark:bg-gray2-light text-center w-11/12 md:w-9/12 mx-auto p-4 drop-shadow-xl"
       id="experience"
     >
       <div className="relative m-4 w-32 h-32 md:w-72 md:h-72">

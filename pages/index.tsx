@@ -27,7 +27,7 @@ const Home = () => {
 
   return (
     <div className={dark ? 'dark' : ''}>
-      <div className={'bg-gray-100 dark:bg-gray2-dark w-screen overflow-hidden'}>
+      <div className={'font-sans bg-gray-100 dark:bg-gray2-dark w-screen overflow-hidden'}>
         <Menu>
           <h1 className="m-4 dark:text-white font-bold leading-12 text-3xl">MKQ</h1>
           <hr className="border-gray-200 dark:border-gray2-lighter"></hr>
@@ -50,7 +50,7 @@ const Home = () => {
           <div className="rounded-md m-2 h-72 w-72 md:h-96 md:w-96 drop-shadow-xl">
             <Image src="/imgs/me.jpg" alt="Kevin" layout="fill" className="rounded-xl" />
           </div>
-          <div className="font-sans text-center" id="landing">
+          <div className="text-center" id="landing">
             <h1
               className="mb-4 md:mb-8 text-4xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-400 animate-hue font-extrabold"
               id="introduction-text-header"
@@ -64,7 +64,7 @@ const Home = () => {
         </div>
 
         <div
-          className="font-sans rounded-md bg-white dark:bg-gray2-light text-left w-11/12 md:w-9/12 mx-auto my-20 p-4 drop-shadow-xl"
+          className="rounded-md bg-white dark:bg-gray2-light text-left w-11/12 md:w-9/12 mx-auto my-20 p-4 drop-shadow-xl"
           ref={aboutRef}
           id="about"
         >
@@ -87,18 +87,18 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="font-sans text-center" ref={projectsRef} id="project-section">
+        <div className="text-center" ref={projectsRef} id="project-section">
           <h1 className="m-8 text-3xl dark:text-white font-extrabold drop-shadow-md">
             Past Projects
           </h1>
           <div className="flex flex-wrap gap-4 place-content-center" id="projects">
-            {projects.map(({ title, role, description, image, link }, index) => (
+            {projects.map(({ title, role, description, video, link }, index) => (
               <ProjectTile
                 key={'project-' + index}
                 title={title}
                 role={role}
                 description={description}
-                image={image}
+                video={video}
                 link={link}
               />
             ))}

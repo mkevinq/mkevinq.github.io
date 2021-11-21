@@ -11,7 +11,7 @@ const IconLink: FunctionComponent<IconLink> = ({ name, src, href }) => {
   return (
     <a href={href}>
       <div className="relative w-12 h-12">
-        <Image src={src} layout="fill" />
+        <Image alt={name} src={src} layout="fill" />
       </div>
     </a>
   );

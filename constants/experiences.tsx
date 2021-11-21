@@ -53,7 +53,7 @@ const experience: Experience[] = [
       </>,
     ],
     link: 'https://www.shopbonsai.ca/',
-    image: '/imgs/firefly.png',
+    image: '/imgs/firefly2.png',
   },
 ];
 

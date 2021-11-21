@@ -3,7 +3,7 @@ export type Project = {
   role: string;
   description: string;
   link: string;
-  image: string;
+  video: string;
 };
 
 const projects: Project[] = [
@@ -12,49 +12,49 @@ const projects: Project[] = [
     role: 'PCB & Case Designer, Firmware Programmer',
     description: 'Fully-featured luxury custom mechanical keyboard',
     link: '',
-    image: '/imgs/prism65.png',
+    video: '/imgs/prism65.mp4',
   },
   {
     title: 'StudyBuddy',
     role: 'Full Stack Developer',
     description: 'Reinforcing better habits while working at home using computer vision',
     link: 'https://github.com/Cameron-Beaulieu/studybuddy',
-    image: '/imgs/studybuddy.png',
+    video: '/imgs/studybuddy.mp4',
   },
   {
     title: 'Budgy',
     role: 'Full Stack Developer',
     description: 'Budget tracking by scanning pictures of receipts',
     link: 'https://github.com/mkevinq/budgy',
-    image: '/imgs/budgy.png',
+    video: '/imgs/budgy.mp4',
   },
   {
     title: 'Reciplease',
     role: 'Full Stack Developer',
     description: 'Live recipe suggestions by showing ingredients on camera',
     link: 'https://github.com/mkevinq/reciplease',
-    image: '/imgs/reciplease.png',
+    video: '/imgs/reciplease.mp4',
   },
   {
     title: 'Journey',
     role: 'Full Stack Developer',
     description: 'Personal journal with sentiment analysis for mental-health',
     link: 'https://github.com/mkevinq/journey',
-    image: '/imgs/journey.png',
+    video: '/imgs/journey.png',
   },
   {
     title: 'Smart Windows',
     role: 'Full Stack Developer',
     description: 'IoT system that controls windows in your house',
     link: 'https://github.com/yebrandon/smart-windows',
-    image: '/imgs/smart-windows.png',
+    video: '/imgs/smart-windows.mp4',
   },
   {
     title: 'Mineral Madness',
     role: 'Lead Developer',
     description: 'Fighting game written entirely in Python',
     link: 'https://github.com/mkevinq/mineral-madness',
-    image: '/imgs/mineral-madness.png',
+    video: '/imgs/mineralmadness.mp4',
   },
 ];
 
