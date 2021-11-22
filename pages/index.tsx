@@ -47,10 +47,11 @@ const Home = () => {
           className="flex flex-col md:flex-row-reverse md:justify-evenly h-screen items-center justify-center space-y-12"
           id="about"
         >
-          <div className="rounded-md m-2 h-72 w-72 md:h-96 md:w-96 drop-shadow-xl">
+          <div className="m-2 h-72 w-72 md:h-96 md:w-96 drop-shadow-xl">
+            <div className="rounded-xl bg-gradient-to-r from-blue-500 to-green-400 animate-huewiggle h-full w-full"></div>
             <Image src="/imgs/me.jpg" alt="Kevin" layout="fill" className="rounded-xl" />
           </div>
-          <div className="text-center" id="landing">
+          <div className="text-center drop-shadow-md" id="landing">
             <h1
               className="mb-4 md:mb-8 text-4xl md:text-7xl bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-green-400 animate-hue font-extrabold"
               id="introduction-text-header"
@@ -64,24 +65,24 @@ const Home = () => {
         </div>
 
         <div
-          className="rounded-md bg-white dark:bg-gray2-light text-left w-11/12 md:w-9/12 mx-auto my-20 p-4 drop-shadow-xl"
+          className="rounded-md bg-white text-sm md:text-base dark:bg-gray2-light dark:text-white text-left w-11/12 md:w-9/12 mx-auto my-20 p-4 drop-shadow-xl"
           ref={aboutRef}
           id="about"
         >
-          <h1 className="m-4 text-3xl dark:text-white font-extrabold">Who am I?</h1>
-          <p className="m-4 text-small text-blue-400 font-small">
+          <h1 className="m-4 text-3xl font-extrabold">Who am I?</h1>
+          <p className="m-4 text-blue-400">
             A software developer, a tech enthusiast, a mechanical keyboard nerd... there are lots of
             things you can call me.
           </p>
-          <p className="m-4 text-small dark:text-white font-small">
+          <p className="m-4">
             I&apos;m constantly learning new things, and evolving with the world. Innovation excites
             me, and I&apos;m always looking for new tools to play around with.
           </p>
-          <p className="m-4 text-small dark:text-white font-small">
+          <p className="m-4">
             From web development to embedded systems, computer-aided design and AI, I&apos;ve
             experimented with many avenues of technology to build things that I find exciting.
           </p>
-          <p className="m-4 text-small dark:text-white font-small">
+          <p className="m-4">
             In this website, you can find more information about my previous experiences and work. I
             hope you enjoy your stay!
           </p>

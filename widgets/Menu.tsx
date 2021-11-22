@@ -15,7 +15,7 @@ const Menu: FunctionComponent = ({ children }) => {
       <div
         className={
           (visible ? ' ' : '-translate-x-full') +
-          ' z-10 fixed left-0 transition-transform rounded-tr-xl rounded-br-xl w-7/12 md:w-3/12 h-screen bg-white dark:bg-gray2-light bg-opacity-95 drop-shadow-lg'
+          ' z-10 fixed left-0 transition-transform rounded-tr-xl rounded-br-xl w-7/12 md:w-3/12 h-screen bg-white dark:bg-gray2-light drop-shadow-lg'
         }
       >
         <svg
