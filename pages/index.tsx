@@ -12,11 +12,27 @@ import IconLink from '../components/IconLink';
 
 const Home = () => {
   const [dark, setDarkMode] = useState(false);
+  const [scrollIndicatorTriggered, showScrollIndicator] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Show scroll indicator after 2 seconds
+    setTimeout(() => {
+      if (window.scrollY === 0) {
+        showScrollIndicator(true);
+      }
+    }, 2000);
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY !== 0) {
+        showScrollIndicator(false);
+      }
+    });
+  }, []);
 
   const toggleDarkMode = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
@@ -62,6 +78,23 @@ const Home = () => {
               Nice to meet you!
             </p>
           </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={
+              (scrollIndicatorTriggered ? 'opacity-100' : 'opacity-0') +
+              ' absolute h-6 w-6 bottom-10 text-gray-400 dark:text-gray-100 animate-bounce transition-opacity'
+            }
+            fill="white"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 14l-7 7m0 0l-7-7m7 7V3"
+            />
+          </svg>
         </div>
 
         <div
