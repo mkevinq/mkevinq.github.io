@@ -9,6 +9,8 @@ import experience from '../constants/experiences';
 import contacts from '../constants/contacts';
 import ExperienceTile from '../widgets/ExperienceTile';
 import IconLink from '../components/IconLink';
+import hobbies from '../constants/hobbies';
+import HobbyTile from '../widgets/HobbyCard';
 
 const Home = () => {
   const [dark, setDarkMode] = useState(false);
@@ -18,6 +20,7 @@ const Home = () => {
   const projectsRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
+  const hobbiesRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Show scroll indicator after 2 seconds
@@ -57,6 +60,7 @@ const Home = () => {
           <ElementLink title="Projects" href={projectsRef} />
           <ElementLink title="Experience" href={experienceRef} />
           <ElementLink title="Contact" href={contactRef} />
+          <ElementLink title="Hobbies" href={hobbiesRef} />
         </Menu>
 
         <div
@@ -155,6 +159,15 @@ const Home = () => {
                 image={image}
               />
             </div>
+          ))}
+        </div>
+
+        <div ref={hobbiesRef} className="my-20" id="hobbies">
+          <h1 className="m-8 text-3xl dark:text-white text-center font-extrabold drop-shadow-md">
+            Hobbies
+          </h1>
+          {hobbies.map(({ title, content, image }, index) => (
+            <HobbyTile key={'hobby-' + index} title={title} content={content} image={image} />
           ))}
         </div>
 
