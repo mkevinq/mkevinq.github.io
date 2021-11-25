@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { MouseEvent, MutableRefObject, useRef, useState } from 'react';
+import { MouseEvent, MutableRefObject, useRef, useState, useEffect } from 'react';
 import ProjectTile from '../widgets/ProjectTile';
 import projects from '../constants/projects';
 import Menu from '../widgets/Menu';
