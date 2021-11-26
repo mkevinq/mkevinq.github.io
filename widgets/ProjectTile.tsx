@@ -12,7 +12,7 @@ const ProjectTile: FunctionComponent<Project> = ({ title, role, description, lin
           </video>
         </div>
         <div className="h-full w-full flex justify-center items-center opacity-0 hover:opacity-100 transition-opacity">
-          <div className="p-4 h-5/6 md:h-4/6 w-5/6 bg-white dark:bg-gray2-light dark:text-white flex flex-col text-center justify-center rounded-xl drop-shadow-md">
+          <div className="p-4 h-5/6 md:h-4/6 w-5/6 bg-white dark:bg-gray2-light dark:text-white flex flex-col text-center justify-center drop-shadow-md">
             <h2 className="font-bold">{title}</h2>
             <h3 className="text-xs font-thin">{role}</h3>
             <p className="pt-2 text-sm">{description}</p>
