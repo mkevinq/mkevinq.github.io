@@ -37,10 +37,16 @@ const Home = () => {
     });
   }, []);
 
+  // Let the theme setting persist between page loads
+  useEffect(() => {
+    setDarkMode(Boolean(localStorage.getItem('darkMode')));
+  }, []);
+
   const toggleDarkMode = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     value: boolean,
   ) => {
+    localStorage.setItem('darkMode', value ? 'true' : '');
     setDarkMode(value);
   };
 
@@ -51,7 +57,7 @@ const Home = () => {
           <h1 className="m-4 dark:text-white font-bold leading-12 text-3xl">MKQ</h1>
           <hr className="border-gray-200 dark:border-gray2-lighter"></hr>
           <div className="flex flex-row items-center justify-between">
-            <Toggle onToggle={toggleDarkMode} />
+            <Toggle value={dark} onToggle={toggleDarkMode} />
             <h3 className="text-gray-400 dark:text-gray2-full m-4">Dark Mode</h3>
           </div>
           <hr className="border-gray-200 dark:border-gray2-lighter"></hr>
