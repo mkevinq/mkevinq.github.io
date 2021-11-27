@@ -1,20 +1,22 @@
 import Image from 'next/image';
-import { MouseEvent, MutableRefObject, useRef, useState, useEffect } from 'react';
+import { MouseEvent, MutableRefObject, useRef, createRef, useState, useEffect } from 'react';
 import ProjectTile from '../widgets/ProjectTile';
 import projects from '../constants/projects';
 import Menu from '../widgets/Menu';
 import ElementLink from '../components/InPageLink';
 import Toggle from '../components/Toggle';
 import experience from '../constants/experiences';
-import contacts from '../constants/contacts';
 import ExperienceTile from '../widgets/ExperienceTile';
+import contacts from '../constants/contacts';
 import IconLink from '../components/IconLink';
 import hobbies from '../constants/hobbies';
 import HobbyTile from '../widgets/HobbyCard';
+import { isInView } from '../utils/in-view';
 
 const Home = () => {
   const [dark, setDarkMode] = useState(false);
   const [scrollIndicatorTriggered, showScrollIndicator] = useState(false);
+  const [contactsVisible, setContactsVisible] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
@@ -42,6 +44,17 @@ const Home = () => {
     setDarkMode(Boolean(localStorage.getItem('darkMode')));
   }, []);
 
+  // Check if the contacts section is in view
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      if (contactRef.current && isInView(contactRef.current)) {
+        setContactsVisible(true);
+      } else if (contactRef.current && !isInView(contactRef.current)) {
+        setContactsVisible(false);
+      }
+    });
+  }, []);
+
   const toggleDarkMode = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
     value: boolean,
@@ -54,20 +67,50 @@ const Home = () => {
     <div className={dark ? 'dark' : ''}>
       <div className={'font-sans bg-gray-100 dark:bg-gray2-dark w-screen overflow-hidden'}>
         <Menu>
-          <h1 className="m-4 dark:text-white font-bold leading-12 text-3xl">MKQ</h1>
+          <h1 className="m-4 dark:text-white font-bold leading-10 text-3xl">MKQ</h1>
           <hr className="border-gray-200 dark:border-gray2-lighter"></hr>
           <div className="flex flex-row items-center justify-between">
             <Toggle value={dark} onToggle={toggleDarkMode} />
             <h3 className="text-gray-400 dark:text-gray2-full m-4">Dark Mode</h3>
           </div>
           <hr className="border-gray-200 dark:border-gray2-lighter"></hr>
-          <ElementLink title="About" href={aboutRef} />
-          <ElementLink title="Skills" href={skillsRef} />
-          <ElementLink title="Projects" href={projectsRef} />
-          <ElementLink title="Experience" href={experienceRef} />
-          <ElementLink title="Contact" href={contactRef} />
-          <ElementLink title="Hobbies" href={hobbiesRef} />
+          <ElementLink href={aboutRef}>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">About</h3>
+          </ElementLink>
+          <ElementLink href={skillsRef}>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Skills</h3>
+          </ElementLink>
+          <ElementLink href={projectsRef}>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Projects</h3>
+          </ElementLink>
+          <ElementLink href={experienceRef}>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Experince</h3>
+          </ElementLink>
+          <ElementLink href={hobbiesRef}>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Hobbies</h3>
+          </ElementLink>
+          <ElementLink href={contactRef}>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Contact</h3>
+          </ElementLink>
         </Menu>
+
+        <div
+          className={
+            (contactsVisible ? 'translate-x-full' : '') +
+            ' transition-all z-10 right-0 fixed p-4 text-gray-400 dark:text-gray-100 cursor-pointer'
+          }
+        >
+          <ElementLink href={contactRef}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+            </svg>
+          </ElementLink>
+        </div>
 
         <div
           className="flex flex-col md:flex-row-reverse md:justify-evenly h-screen items-center justify-center space-y-12"
@@ -94,7 +137,6 @@ const Home = () => {
               (scrollIndicatorTriggered ? 'opacity-100' : 'opacity-0') +
               ' absolute h-6 w-6 bottom-10 text-gray-400 dark:text-gray-100 animate-bounce transition-opacity'
             }
-            fill="white"
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
@@ -185,9 +227,12 @@ const Home = () => {
           <h2 className="m-4 text-2xl font-bold">Want to get in contact with me?</h2>
           <h3 className="m-4 text-lg">Find me using any of the outlets below!</h3>
           <hr className="m-4 border-gray-200 dark:border-gray2-lighter"></hr>
-          <div className="flex flex-row flex-wrap w-full justify-around">
+          <div className="flex flex-row flex-wrap w-full justify-around text-gray-600 dark:text-gray-100">
             {contacts.map(({ title, link, image }, index) => (
-              <div key={'contact-' + index} className="m-4">
+              <div
+                key={'contact-' + index}
+                className="m-4 opacity-80 hover:opacity-100 transition-opacity"
+              >
                 <IconLink name={title} src={image} href={link} />
               </div>
             ))}

@@ -20,7 +20,7 @@ const Menu: FunctionComponent = ({ children }) => {
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="right-0 absolute z-20 cursor-pointer text-gray-400 dark:text-gray-100 m-4 h-12 w-12"
+          className="right-0 absolute z-20 cursor-pointer text-gray-400 dark:text-gray-100 m-4 h-10 w-10"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -39,7 +39,7 @@ const Menu: FunctionComponent = ({ children }) => {
         xmlns="http://www.w3.org/2000/svg"
         className={
           (visible ? 'opacity-0' : 'opacity-100') +
-          ' transition-opacity z-10 text-gray-400 dark:text-gray-100 fixed cursor-pointer m-4 h-12 w-12'
+          ' transition-opacity z-10 text-gray-400 dark:text-gray-100 fixed cursor-pointer m-4 h-10 w-10'
         }
         fill="none"
         viewBox="0 0 24 24"
