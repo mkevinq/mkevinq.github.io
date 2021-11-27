@@ -1,5 +1,7 @@
 import Image from 'next/image';
-import { MouseEvent, MutableRefObject, useRef, createRef, useState, useEffect } from 'react';
+import Phone from '../public/phone.svg';
+import DownArrow from '../public/down-arrow.svg';
+import { MouseEvent, useRef, useState, useEffect } from 'react';
 import ProjectTile from '../widgets/ProjectTile';
 import projects from '../constants/projects';
 import Menu from '../widgets/Menu';
@@ -84,7 +86,7 @@ const Home = () => {
             <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Projects</h3>
           </ElementLink>
           <ElementLink href={experienceRef}>
-            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Experince</h3>
+            <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Experience</h3>
           </ElementLink>
           <ElementLink href={hobbiesRef}>
             <h3 className="m-4 dark:text-white font-semibold cursor-pointer">Hobbies</h3>
@@ -97,18 +99,13 @@ const Home = () => {
         <div
           className={
             (contactsVisible ? 'translate-x-full' : '') +
-            ' transition-all z-10 right-0 fixed p-4 text-gray-400 dark:text-gray-100 cursor-pointer'
+            ' transition-all z-10 right-0 fixed text-gray-400 dark:text-gray-100 cursor-pointer'
           }
         >
           <ElementLink href={contactRef}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-            </svg>
+            <div className="m-4 h-10 w-10">
+              <Phone />
+            </div>
           </ElementLink>
         </div>
 
@@ -131,22 +128,14 @@ const Home = () => {
               Nice to meet you!
             </p>
           </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
+          <div
             className={
               (scrollIndicatorTriggered ? 'opacity-100' : 'opacity-0') +
               ' absolute h-6 w-6 bottom-10 text-gray-400 dark:text-gray-100 animate-bounce transition-opacity'
             }
-            viewBox="0 0 24 24"
-            stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
+            <DownArrow />
+          </div>
         </div>
 
         <div

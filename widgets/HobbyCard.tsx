@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import DownChevron from '../public/chevron-down.svg';
+import UpChevron from '../public/chevron-up.svg';
 import { FunctionComponent, useState } from 'react';
 import { Hobby } from '../constants/hobbies';
 import { Project } from '../constants/projects';
@@ -17,36 +19,13 @@ const HobbyTile: FunctionComponent<Hobby> = ({ title, content, image }) => {
         <div className="h-full w-full absolute flex items-center justify-between bg-black bg-opacity-20">
           <h2 className="m-4 md:m-8 md:text-4xl font-bold drop-shadow-md">{title}</h2>
           {isContentVisible ? (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="m-4 md:m-8 text-white h-6 md:h-12 w-6 md:w-12 drop-shadow-sm"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              (
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 15l7-7 7 7"
-              />
-            </svg>
+            <div className="m-4 md:m-8 text-white h-6 md:h-12 w-6 md:w-12 drop-shadow-sm">
+              <UpChevron />
+            </div>
           ) : (
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="m-4 md:m-8 text-white h-6 md:h-12 w-6 md:w-12 drop-shadow-sm"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 9l-7 7-7-7"
-              />
-            </svg>
+            <div className="m-4 md:m-8 text-white h-6 md:h-12 w-6 md:w-12 drop-shadow-sm">
+              <DownChevron />
+            </div>
           )}
         </div>
         <video className="h-16 md:h-32 w-full object-cover" autoPlay loop muted>
