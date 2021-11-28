@@ -3,6 +3,7 @@ module.exports = {
   purge: [
     './pages/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
+    './constants/**/*.{js,ts,jsx,tsx}',
     './widgets/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class', // or 'media' or 'class'

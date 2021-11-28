@@ -18,7 +18,7 @@ const contacts: Contact[] = [
   {
     title: 'GitHub',
     link: 'https://github.com/mkevinq',
-    image: <GitHub />,
+    image: <GitHub className="text-black dark:text-white" />,
   },
   {
     title: 'LinkedIn',
@@ -28,7 +28,7 @@ const contacts: Contact[] = [
   {
     title: 'Devpost',
     link: 'https://devpost.com/mkevinquijalvo',
-    image: <Devpost />,
+    image: <Devpost className="text-black dark:text-white" />,
   },
 ];
 
