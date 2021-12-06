@@ -215,8 +215,8 @@ const Home = () => {
             me, and I&apos;m always looking for new tools to play around with.
           </p>
           <p className="m-4">
-            From web development to embedded systems, computer-aided design and AI, I&apos;ve
-            experimented with many avenues of technology to build things that I find exciting.
+            From web development to embedded systems, computer-aided design and AI, I experiment
+            with many avenues of technology to build things that I find exciting.
           </p>
           <p className="m-4">
             In this website, you can find more information about my previous experiences and work. I
