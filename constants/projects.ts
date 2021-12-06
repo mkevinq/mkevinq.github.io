@@ -40,7 +40,7 @@ const projects: Project[] = [
     role: 'Full Stack Developer',
     description: 'Personal journal with sentiment analysis for mental-health',
     link: 'https://github.com/mkevinq/journey',
-    video: '/imgs/journey.png',
+    video: '/imgs/journey.mp4',
   },
   {
     title: 'Smart Windows',
