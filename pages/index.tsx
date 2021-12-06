@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Phone from '../public/phone.svg';
 import DownArrow from '../public/down-arrow.svg';
-import { MouseEvent, useRef, useState, useEffect } from 'react';
+import { MouseEvent, useRef, useState, useEffect, createRef } from 'react';
 import ProjectTile from '../widgets/ProjectTile';
 import projects from '../constants/projects';
 import Menu from '../widgets/Menu';
@@ -10,6 +10,7 @@ import Toggle from '../components/Toggle';
 import experience from '../constants/experiences';
 import ExperienceTile from '../widgets/ExperienceTile';
 import contacts from '../constants/contacts';
+import skills, { Skill, priorityHeightMap } from '../constants/skills';
 import IconLink from '../components/IconLink';
 import hobbies from '../constants/hobbies';
 import HobbyTile from '../widgets/HobbyCard';
@@ -21,10 +22,20 @@ const Home = () => {
   const [contactsVisible, setContactsVisible] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
+  const skillRowRefs = useRef(
+    Array.from({ length: Object.keys(priorityHeightMap).length }, () =>
+      createRef<HTMLDivElement>(),
+    ),
+  );
   const projectsRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const contactRef = useRef<HTMLDivElement>(null);
   const hobbiesRef = useRef<HTMLDivElement>(null);
+  const isDragged = useRef(false);
+  const mousePos = useRef({
+    x: 0,
+    y: 0,
+  });
 
   useEffect(() => {
     // Show scroll indicator after 2 seconds
@@ -56,6 +67,57 @@ const Home = () => {
       }
     });
   }, []);
+
+  // Drag scrolling
+  useEffect(() => {
+    skillRowRefs.current?.forEach(({ current }) => {
+      if (current) {
+        const mouseDownHandler = (event: globalThis.MouseEvent) => {
+          mousePos.current = {
+            x: event.clientX,
+            y: event.clientY,
+          };
+          current.style.cursor = 'move';
+
+          current.addEventListener('mousemove', mouseMoveHandler);
+          document.addEventListener('mouseup', mouseUpHandler);
+        };
+
+        const mouseMoveHandler = (event: globalThis.MouseEvent) => {
+          // Prevents link from being clicked
+          if (isDragged.current === false) {
+            current.addEventListener('click', clickHandler, true);
+
+            isDragged.current = true;
+          }
+
+          current.scrollBy({
+            left: mousePos.current.x - event.clientX,
+          });
+          mousePos.current = {
+            x: event.clientX,
+            y: event.clientY,
+          };
+        };
+
+        const mouseUpHandler = (event: globalThis.MouseEvent) => {
+          if (!isDragged.current) {
+            current.removeEventListener('click', clickHandler, true);
+          }
+          isDragged.current = false;
+          current.removeEventListener('mousemove', mouseMoveHandler);
+          document.removeEventListener('mouseup', mouseUpHandler);
+          current.style.cursor = 'pointer';
+        };
+
+        const clickHandler = (event: globalThis.MouseEvent) => {
+          event.preventDefault();
+        };
+
+        current.addEventListener('mousedown', mouseDownHandler);
+      }
+    });
+  }, [skillRowRefs]);
 
   const toggleDarkMode = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
@@ -162,7 +224,56 @@ const Home = () => {
           </p>
         </div>
 
-        <div className="text-center" ref={projectsRef} id="project-section">
+        <div className="my-20 text-center" ref={skillsRef} id="skills-section">
+          <h1 className="z-10 m-8 text-3xl dark:text-white font-extrabold drop-shadow-md">
+            Skills
+          </h1>
+          <div className="flex flex-col gap-12" id="skills">
+            {Object.entries(
+              skills.reduce(
+                (
+                  acc: Record<number, { index: number; skill: Skill }[]>,
+                  skill: Skill,
+                  index: number,
+                ) => {
+                  const { priority } = skill;
+
+                  if (!acc[priority]) {
+                    acc[priority] = [];
+                  }
+
+                  acc[skill.priority].push({ index, skill });
+
+                  return acc;
+                },
+                {},
+              ),
+            ).map(([priority, skills], index) => {
+              return (
+                <div
+                  className="overflow-x-auto mx-auto min-w-0 max-w-max w-screen no-scrollbar"
+                  key={'skillrow-' + priority}
+                  ref={skillRowRefs.current?.[index]}
+                >
+                  <div
+                    className={
+                      priorityHeightMap[parseInt(priority) as keyof typeof priorityHeightMap] +
+                      ' flex flex-row mb-4 w-full'
+                    }
+                  >
+                    {skills.map(({ index, skill: { name, link, image } }, skillNum) => (
+                      <div key={'skill-' + skillNum} className="px-4">
+                        <IconLink name={name} href={link} src={image} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="my-20 text-center" ref={projectsRef} id="project-section">
           <h1 className="m-8 text-3xl dark:text-white font-extrabold drop-shadow-md">
             Past Projects
           </h1>
@@ -210,7 +321,7 @@ const Home = () => {
 
         <div
           ref={contactRef}
-          className="text-center dark:text-white rounded-md bg-white dark:bg-gray2-light text-left w-11/12 md:w-9/12 mx-auto my-20 p-4 drop-shadow-xl"
+          className="text-center dark:text-white rounded-md bg-white dark:bg-gray2-light w-11/12 md:w-9/12 mx-auto my-20 p-4 drop-shadow-xl"
           id="contact"
         >
           <h2 className="m-4 text-2xl font-bold">Want to get in contact with me?</h2>
@@ -220,7 +331,7 @@ const Home = () => {
             {contacts.map(({ title, link, image }, index) => (
               <div
                 key={'contact-' + index}
-                className="m-4 opacity-80 hover:opacity-100 transition-opacity"
+                className="m-4 opacity-80 hover:opacity-100 w-12 h-12 transition-opacity"
               >
                 <IconLink name={title} src={image} href={link} />
               </div>
