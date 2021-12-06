@@ -2,6 +2,7 @@ export type Hobby = {
   title: string;
   content: JSX.Element[];
   image: string;
+  poster: string;
 };
 
 const hobbies: Hobby[] = [
@@ -31,6 +32,7 @@ const hobbies: Hobby[] = [
       </>,
     ],
     image: '/imgs/keyboards.mp4',
+    poster: '/imgs/prism65.png',
   },
   {
     title: 'Speedrunning',
@@ -63,6 +65,7 @@ const hobbies: Hobby[] = [
       </>,
     ],
     image: '/imgs/speedrunning.mp4',
+    poster: '/imgs/prism65.png',
   },
 ];
 

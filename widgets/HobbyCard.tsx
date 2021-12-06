@@ -5,7 +5,7 @@ import { FunctionComponent, useState } from 'react';
 import { Hobby } from '../constants/hobbies';
 import { Project } from '../constants/projects';
 
-const HobbyTile: FunctionComponent<Hobby> = ({ title, content, image }) => {
+const HobbyTile: FunctionComponent<Hobby> = ({ title, content, image, poster }) => {
   const [isContentVisible, setContentVisibility] = useState(false);
 
   return (
@@ -28,8 +28,15 @@ const HobbyTile: FunctionComponent<Hobby> = ({ title, content, image }) => {
             </div>
           )}
         </div>
-        <video className="h-16 md:h-32 w-full object-cover" autoPlay loop muted>
-          <source src={image} />
+        <video
+          className="lazy h-16 md:h-32 w-full object-cover"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster={poster}
+        >
+          <source data-src={image} />
         </video>
       </div>
       <div

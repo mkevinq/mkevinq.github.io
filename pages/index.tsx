@@ -16,6 +16,7 @@ import IconLink from '../components/IconLink';
 import hobbies from '../constants/hobbies';
 import HobbyTile from '../widgets/HobbyCard';
 import { isInView } from '../utils/in-view';
+import lozad from 'lozad';
 
 const Home = () => {
   const [dark, setDarkMode] = useState(false);
@@ -119,6 +120,12 @@ const Home = () => {
       }
     });
   }, [skillRowRefs]);
+
+  // Lazy loading video
+  useEffect(() => {
+    const observer = lozad(document.querySelectorAll('video.lazy'));
+    observer.observe();
+  }, []);
 
   const toggleDarkMode = (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
@@ -282,7 +289,7 @@ const Home = () => {
             Past Projects
           </h1>
           <div className="flex flex-wrap gap-4 place-content-center" id="projects">
-            {projects.map(({ title, role, description, video, link }, index) => (
+            {projects.map(({ title, role, description, video, link, poster }, index) => (
               <ProjectTile
                 key={'project-' + index}
                 title={title}
@@ -290,6 +297,7 @@ const Home = () => {
                 description={description}
                 video={video}
                 link={link}
+                poster={poster}
               />
             ))}
           </div>
