@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Head from 'next/head';
 import Phone from '../public/phone.svg';
 import DownArrow from '../public/down-arrow.svg';
 import { MouseEvent, useRef, useState, useEffect, createRef } from 'react';
@@ -130,6 +131,9 @@ const Home = () => {
   return (
     <div className={dark ? 'dark' : ''}>
       <div className={'font-sans bg-gray-100 dark:bg-gray2-dark w-screen overflow-hidden'}>
+        <Head>
+          <title>Marc Kevin Quijalvo</title>
+        </Head>
         <Menu>
           <h1 className="m-4 dark:text-white font-bold leading-10 text-3xl">MKQ</h1>
           <hr className="border-gray-200 dark:border-gray2-lighter"></hr>

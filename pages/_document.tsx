@@ -10,6 +10,7 @@ const Document: FC<DocumentProps> = () => {
           href="https://fonts.googleapis.com/css2?family=Inter&family=Manrope&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" href="./imgs/logo.png" />
       </Head>
       <body>
         <Main />
