@@ -77,7 +77,7 @@ const skills: Skill[] = [
   {
     name: 'Bash',
     image: <Bash className="h-full" />,
-    link: '',
+    link: 'https://www.gnu.org/software/bash/',
     priority: 2,
   },
   {

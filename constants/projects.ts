@@ -11,7 +11,8 @@ const projects: Project[] = [
     title: 'Prism65',
     role: 'PCB & Case Designer, Firmware Programmer',
     description: 'Fully-featured luxury custom mechanical keyboard',
-    link: '',
+    // LinkedIn link for now, because there is no other place with information
+    link: 'https://www.linkedin.com/in/marc-quijalvo/',
     video: '/imgs/prism65.mp4',
   },
   {

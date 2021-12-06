@@ -11,6 +11,7 @@ const Document: FC<DocumentProps> = () => {
           rel="stylesheet"
         />
         <link rel="icon" href="./imgs/logo.png" />
+        <meta name="description" content="Kevin's personal website" />
       </Head>
       <body>
         <Main />
