@@ -326,8 +326,14 @@ const Home = () => {
           <h1 className="m-8 text-3xl dark:text-white text-center font-extrabold drop-shadow-md">
             Hobbies
           </h1>
-          {hobbies.map(({ title, content, image }, index) => (
-            <HobbyTile key={'hobby-' + index} title={title} content={content} image={image} />
+          {hobbies.map(({ title, content, image, poster }, index) => (
+            <HobbyTile
+              key={'hobby-' + index}
+              title={title}
+              content={content}
+              image={image}
+              poster={poster}
+            />
           ))}
         </div>
 
