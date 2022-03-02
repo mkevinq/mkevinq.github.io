@@ -1,4 +1,4 @@
-import { useState, FunctionComponent, MouseEvent } from 'react';
+import { FunctionComponent, MouseEvent } from 'react';
 
 export type ToggleProps = {
   value: boolean;

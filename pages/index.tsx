@@ -2,23 +2,56 @@ import Image from 'next/image';
 import Head from 'next/head';
 import Phone from '../public/phone.svg';
 import DownArrow from '../public/down-arrow.svg';
-import { MouseEvent, useRef, useState, useEffect, createRef } from 'react';
+import { MouseEvent, useRef, useState, useEffect, createRef, FunctionComponent } from 'react';
 import ProjectTile from '../widgets/ProjectTile';
-import projects from '../constants/projects';
 import Menu from '../widgets/Menu';
 import ElementLink from '../components/InPageLink';
 import Toggle from '../components/Toggle';
-import experience from '../constants/experiences';
 import ExperienceTile from '../widgets/ExperienceTile';
-import contacts from '../constants/contacts';
-import skills, { Skill, priorityHeightMap } from '../constants/skills';
+import { priorityHeightMap } from '../constants/skills';
 import IconLink from '../components/IconLink';
-import hobbies from '../constants/hobbies';
 import HobbyTile from '../widgets/HobbyCard';
 import { isInView } from '../utils/in-view';
 import lozad from 'lozad';
+import { Skill, Contact, Experience, Hobby, Project } from '../constants/types';
+import { getCollection } from '../utils/api';
 
-const Home = () => {
+export const getStaticProps = async () => {
+  const publicationState = process.env.NODE_ENV === 'production' ? 'live' : 'preview';
+
+  const projects: Project[] = await getCollection(
+    'projects',
+    ['lazyVideo.poster', 'lazyVideo.video'],
+    publicationState,
+  );
+  const experiences: Experience[] = await getCollection('experiences', ['image'], publicationState);
+  const hobbies: Hobby[] = await getCollection(
+    'hobbies',
+    ['lazyVideo.poster', 'lazyVideo.video'],
+    publicationState,
+  );
+  const skills: Skill[] = await getCollection('skills', ['image'], publicationState);
+  const contacts: Contact[] = await getCollection('contacts', ['icon'], publicationState);
+
+  return {
+    props: {
+      projects,
+      experiences,
+      hobbies,
+      skills,
+      contacts,
+    },
+    revalidate: 10,
+  };
+};
+
+const Home: FunctionComponent<Awaited<ReturnType<typeof getStaticProps>>['props']> = ({
+  projects,
+  experiences,
+  hobbies,
+  skills,
+  contacts,
+}) => {
   const [dark, setDarkMode] = useState(false);
   const [scrollIndicatorTriggered, showScrollIndicator] = useState(false);
   const [contactsVisible, setContactsVisible] = useState(false);
@@ -243,17 +276,18 @@ const Home = () => {
             {Object.entries(
               skills.reduce(
                 (
-                  acc: Record<number, { index: number; skill: Skill }[]>,
+                  acc: Record<number, { index: number; attributes: Skill['attributes'] }[]>,
                   skill: Skill,
                   index: number,
                 ) => {
-                  const { priority } = skill;
+                  const { attributes } = skill;
+                  const { priority } = attributes;
 
                   if (!acc[priority]) {
                     acc[priority] = [];
                   }
 
-                  acc[skill.priority].push({ index, skill });
+                  acc[priority].push({ index, attributes });
 
                   return acc;
                 },
@@ -272,11 +306,21 @@ const Home = () => {
                       ' flex flex-row mb-4 w-full'
                     }
                   >
-                    {skills.map(({ index, skill: { name, link, image } }, skillNum) => (
-                      <div key={'skill-' + skillNum} className="px-4">
-                        <IconLink name={name} href={link} src={image} />
-                      </div>
-                    ))}
+                    {skills.map(({ index, attributes: { name, link, image } }, skillNum) => {
+                      return (
+                        <div
+                          key={'skill-' + skillNum}
+                          className="h-full max-w-max min-w-max text-black dark:text-white variable-image mx-4 drop-shadow-md"
+                        >
+                          <IconLink
+                            name={name}
+                            href={link}
+                            src={image.data.attributes.url}
+                            ext={image.data.attributes.ext}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -289,50 +333,52 @@ const Home = () => {
             Past Projects
           </h1>
           <div className="flex flex-wrap gap-4 place-content-center" id="projects">
-            {projects.map(({ title, role, description, video, link, poster }, index) => (
+            {projects.map(({ id, attributes }, index) => (
               <ProjectTile
                 key={'project-' + index}
-                title={title}
-                role={role}
-                description={description}
-                video={video}
-                link={link}
-                poster={poster}
+                title={attributes.title}
+                role={attributes.role}
+                description={attributes.description}
+                video={attributes.lazyVideo.video.data.attributes.url}
+                link={attributes.link}
+                poster={attributes.lazyVideo.poster.data.attributes.url}
               />
             ))}
           </div>
         </div>
 
-        <div ref={experienceRef} className="my-20" id="experience">
-          <h1 className="m-8 text-3xl dark:text-white text-center font-extrabold drop-shadow-md">
-            Experience
-          </h1>
-          {experience.map(({ title, role, date, description, points, link, image }, index) => (
-            <div key={'experience-' + index} className="my-4">
-              <ExperienceTile
-                title={title}
-                role={role}
-                date={date}
-                description={description}
-                points={points}
-                link={link}
-                image={image}
-              />
-            </div>
-          ))}
-        </div>
+        {experiences.length > 0 && (
+          <div ref={experienceRef} className="my-20" id="experience">
+            <h1 className="m-8 text-3xl dark:text-white text-center font-extrabold drop-shadow-md">
+              Experience
+            </h1>
+            {experiences.map(({ id, attributes }, index) => (
+              <div key={'experience-' + index} className="my-4">
+                <ExperienceTile
+                  title={attributes.title}
+                  role={attributes.role}
+                  startDate={new Date(attributes.startDate)}
+                  endDate={new Date(attributes.endDate)}
+                  description={attributes.description}
+                  details={attributes.details}
+                  image={attributes.image.data.attributes.url}
+                />
+              </div>
+            ))}
+          </div>
+        )}
 
         <div ref={hobbiesRef} className="my-20" id="hobbies">
           <h1 className="m-8 text-3xl dark:text-white text-center font-extrabold drop-shadow-md">
             Hobbies
           </h1>
-          {hobbies.map(({ title, content, image, poster }, index) => (
+          {hobbies.map(({ id, attributes }, index) => (
             <HobbyTile
               key={'hobby-' + index}
-              title={title}
-              content={content}
-              image={image}
-              poster={poster}
+              title={attributes.title}
+              content={attributes.details}
+              image={attributes.lazyVideo.video.data.attributes.url}
+              poster={attributes.lazyVideo.poster.data.attributes.url}
             />
           ))}
         </div>
@@ -346,19 +392,24 @@ const Home = () => {
           <h3 className="m-4 text-lg">Find me using any of the outlets below!</h3>
           <hr className="m-4 border-gray-200 dark:border-gray2-lighter"></hr>
           <div className="flex flex-row flex-wrap w-full justify-around text-gray-600 dark:text-gray-100">
-            {contacts.map(({ title, link, image }, index) => (
+            {contacts.map(({ id, attributes }, index) => (
               <div
                 key={'contact-' + index}
-                className="m-4 opacity-80 hover:opacity-100 w-12 h-12 transition-opacity"
+                className="m-4 opacity-80 hover:opacity-100 w-12 h-12 transition-opacity text-black dark:text-white drop-shadow-md"
               >
-                <IconLink name={title} src={image} href={link} />
+                <IconLink
+                  name={attributes.title}
+                  src={attributes.icon.data.attributes.url}
+                  ext={attributes.icon.data.attributes.ext}
+                  href={attributes.link}
+                />
               </div>
             ))}
           </div>
         </div>
 
         <div className="mt-24 mb-12 text-center text-gray-400 dark:text-gray2-lightest">
-          <p>This website was built from scratch using Tailwind CSS and Next.js.</p>
+          <p>This website was built from scratch using Strapi, Tailwind CSS and Next.js.</p>
           <p>© 2021 Marc Kevin Quijalvo</p>
         </div>
       </div>

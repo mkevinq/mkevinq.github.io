@@ -1,18 +1,29 @@
 import Image from 'next/image';
-import { FunctionComponent, MouseEventHandler, RefObject } from 'react';
+import { FunctionComponent } from 'react';
+import SVG from 'react-inlinesvg';
 
 export type IconLink = {
   name: string;
-  src: string | JSX.Element;
+  src: string;
   href: string;
+  ext: string;
 };
 
-const IconLink: FunctionComponent<IconLink> = ({ name, src, href }) => {
+const IconLink: FunctionComponent<IconLink> = ({ name, src, href, ext }) => {
   return (
     <a href={href}>
-      <div className="flex items-center justify-center w-full h-full drop-shadow-md">
-        {typeof src === 'string' ? <Image alt={name} src={src} layout="fill" /> : src}
-      </div>
+      {ext === '.svg' ? (
+        <SVG
+          className="h-full w-full"
+          src={src}
+          onError={(e) => {
+            console.log(e);
+          }}
+          uniquifyIDs={true}
+        />
+      ) : (
+        <Image className="image" alt={name} src={src} layout="fill" />
+      )}
     </a>
   );
 };

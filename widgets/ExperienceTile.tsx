@@ -1,16 +1,32 @@
+import ReactMarkdown from 'react-markdown';
 import Image from 'next/image';
-import { useState, FunctionComponent } from 'react';
-import { Experience } from '../constants/experiences';
+import { FunctionComponent } from 'react';
 
-const ExperienceTile: FunctionComponent<Experience> = ({
+export type ExperienceProps = {
+  title: string;
+  role: string;
+  startDate: Date;
+  endDate: Date;
+  description: string;
+  details: string;
+  image: string;
+};
+
+const ExperienceTile: FunctionComponent<ExperienceProps> = ({
   title,
   role,
-  date,
+  startDate,
+  endDate,
   description,
-  points,
-  link,
+  details,
   image,
 }) => {
+  const startTime = startDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const endTime = endDate.toLocaleString('default', { month: 'long', year: 'numeric' });
+  const monthDifference = Math.ceil(
+    (endDate.getTime() - startDate.getTime()) / 1000 / 60 / 60 / 24 / 30,
+  );
+
   return (
     <div
       className="rounded-md flex flex-col md:flex-row items-center bg-white dark:bg-gray2-light text-center text-sm md:text-base dark:text-white w-11/12 md:w-9/12 mx-auto p-4 drop-shadow-xl"
@@ -23,15 +39,22 @@ const ExperienceTile: FunctionComponent<Experience> = ({
         <div className="mx-4 md:text-left">
           <h1 className="text-2xl font-extrabold">{title}</h1>
           <p className="text-xs text-blue-400">{role}</p>
-          <p className="text-xs text-gray-400">{date}</p>
+          <p className="text-xs text-gray-400">
+            {startTime} - {endTime} ({monthDifference} months)
+          </p>
         </div>
         <p className="m-4 text-left">{description}</p>
-        <p className="m-4 text-left">Some of my contributions include:</p>
-        <ul className="mx-8 text-left list-disc">
-          {points.map((point, index) => (
-            <li key={'point-' + index}>{point}</li>
-          ))}
-        </ul>
+        <ReactMarkdown
+          components={{
+            em: ({ node, ...props }) => <span className="text-blue-400" {...props} />,
+            p: ({ node, ...props }) => <p className="m-4 text-left" {...props} />,
+            ul: ({ node, ordered, ...props }) => (
+              <ul className="mx-8 text-left list-disc" {...props} />
+            ),
+          }}
+        >
+          {details}
+        </ReactMarkdown>
       </div>
     </div>
   );

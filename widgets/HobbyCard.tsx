@@ -1,11 +1,16 @@
-import Image from 'next/image';
+import ReactMarkdown from 'react-markdown';
 import DownChevron from '../public/chevron-down.svg';
 import UpChevron from '../public/chevron-up.svg';
 import { FunctionComponent, useState } from 'react';
-import { Hobby } from '../constants/hobbies';
-import { Project } from '../constants/projects';
 
-const HobbyTile: FunctionComponent<Hobby> = ({ title, content, image, poster }) => {
+export type HobbyProps = {
+  title: string;
+  content: string;
+  image: string;
+  poster: string;
+};
+
+const HobbyTile: FunctionComponent<HobbyProps> = ({ title, content, image, poster }) => {
   const [isContentVisible, setContentVisibility] = useState(false);
 
   return (
@@ -45,11 +50,14 @@ const HobbyTile: FunctionComponent<Hobby> = ({ title, content, image, poster }) 
           ' m-2 overflow-hidden bg-white dark:bg-gray2-light dark:text-white text-xs md:text-base rounded-xl drop-shadow-md'
         }
       >
-        {content.map((point, index) => (
-          <p key={'hobby-' + title + '-' + index} className="m-2">
-            {point}
-          </p>
-        ))}
+        <ReactMarkdown
+          components={{
+            em: ({ node, ...props }) => <span className="text-blue-400" {...props} />,
+            p: ({ node, ...props }) => <p className="m-2" {...props} />,
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </div>
     </div>
   );

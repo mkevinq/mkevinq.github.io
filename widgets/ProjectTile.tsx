@@ -1,8 +1,15 @@
-import Image from 'next/image';
 import { FunctionComponent } from 'react';
-import { Project } from '../constants/projects';
 
-const ProjectTile: FunctionComponent<Project> = ({
+export type ProjectProps = {
+  title: string;
+  role: string;
+  description: string;
+  link: string;
+  video: string;
+  poster: string;
+};
+
+const ProjectTile: FunctionComponent<ProjectProps> = ({
   title,
   role,
   description,
