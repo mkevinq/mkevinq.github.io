@@ -268,10 +268,13 @@ const Home: FunctionComponent<Awaited<ReturnType<typeof getStaticProps>>['props'
           </p>
         </div>
 
-        <div className="my-20 text-center" ref={skillsRef} id="skills-section">
-          <h1 className="z-10 m-8 text-3xl dark:text-white font-extrabold drop-shadow-md">
-            Skills
-          </h1>
+        <div
+          className="my-48 text-center relative flex flex-col justify-center py-24"
+          ref={skillsRef}
+          id="skills-section"
+        >
+          <div className="absolute -skew-y-2 h-full w-full drop-shadow-lg bg-gradient-to-t from-blue-500 to-blue-400"></div>
+          <h1 className="z-10 mb-8 text-3xl text-white font-extrabold drop-shadow-md">Skills</h1>
           <div className="flex flex-col gap-12" id="skills">
             {Object.entries(
               skills.reduce(
@@ -328,11 +331,24 @@ const Home: FunctionComponent<Awaited<ReturnType<typeof getStaticProps>>['props'
           </div>
         </div>
 
-        <div className="my-20 text-center" ref={projectsRef} id="project-section">
-          <h1 className="m-8 text-3xl dark:text-white font-extrabold drop-shadow-md">
-            Past Projects
-          </h1>
-          <div className="flex flex-wrap gap-4 place-content-center" id="projects">
+        <div
+          className="my-24 lg:p-12 text-center flex flex-col lg:flex-row justify-center items-center"
+          ref={projectsRef}
+          id="project-section"
+        >
+          <div className="w-11/12 lg:w-1/2 max-w-2xl dark:text-white bg-white dark:bg-gray2-light lg:bg-transparent lg:dark:bg-transparent rounded-md text-left p-8 m-8 drop-shadow-md">
+            <h1 className="mb-4 lg:mb-12 text-3xl lg:text-6xl font-extrabold">Projects</h1>
+            <p className="mb-4 lg:mb-12 lg:text-2xl">
+              Here is a few of the projects that I have worked on in the past!
+            </p>
+            <p className="lg:text-2xl">
+              Hover or click on a card to see more information about it!
+            </p>
+          </div>
+          <div
+            className="w-full max-w-6xl flex flex-row flex-wrap gap-4 place-content-center"
+            id="projects"
+          >
             {projects.map(({ id, attributes }, index) => (
               <ProjectTile
                 key={'project-' + index}
@@ -368,8 +384,13 @@ const Home: FunctionComponent<Awaited<ReturnType<typeof getStaticProps>>['props'
           </div>
         )}
 
-        <div ref={hobbiesRef} className="my-20" id="hobbies">
-          <h1 className="m-8 text-3xl dark:text-white text-center font-extrabold drop-shadow-md">
+        <div
+          ref={hobbiesRef}
+          className="my-24 py-24 relative flex flex-col justify-center"
+          id="hobbies"
+        >
+          <div className="absolute skew-y-2 h-full w-full drop-shadow-lg bg-gradient-to-t from-indigo-700 to-indigo-600"></div>
+          <h1 className="mb-8 text-3xl text-white text-center font-extrabold drop-shadow-md">
             Hobbies
           </h1>
           {hobbies.map(({ id, attributes }, index) => (
